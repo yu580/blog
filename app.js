@@ -46,7 +46,8 @@ mongoose.connect('mongodb://localhost:27018/blog',function(error){
     }else{
         console.log('连接数据库成功');
         //监听8081端口
-        app.listen('80');
+        app.listen('8082');
+        console.log('监听8082端口成功')
     }
 });
 
@@ -63,7 +64,7 @@ app.use(function(req,res,next){
 
            User.findById(req.userInfo._id).then(function(userInfo){
                req.userInfo.isAdmin = Boolean(userInfo.isAdmin);
-			   req.userInfo.username = decodeURI(userInfo.username);
+               req.userInfo.username = decodeURI(userInfo.username);
                next();
            })
 

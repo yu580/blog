@@ -58,9 +58,12 @@ router.get('/', function(req, res, next) {
         });
 
     }).then(function(contents) {
-		for (var i = 0;i < contents.length; i++) {
-			contents[i].user.username = decodeURI(contents[i].user.username);
-		};
+        if(contents>0){
+            for (var i = 0;i < contents.length; i++) {
+                contents[i].user.username = decodeURI(contents[i].user.username);
+            };
+        }
+
         data.contents = contents;
 		
         res.render('main/index', data);
@@ -75,7 +78,9 @@ router.get('/view', function (req, res){
         _id: contentId
     }).populate('user').then(function (content) {
         data.content = content;
-		content.user.username = decodeURI(content.user.username);
+        if(content){
+            content.user.username = decodeURI(content.user.username);
+        }
 		console.log(data);
         content.views++;
         content.save(); //content 相当于 Content的实例所以可以直接使用实例方法
